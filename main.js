@@ -112,6 +112,17 @@ class Grid {
         }
     }
 
+    reset(size) {
+        let self = this;
+        this.cellSize = size || this.cellSize;
+        this.width = Math.floor(this.pixelWidth / this.cellSize);
+        this.height = Math.floor(this.pixelHeight / this.cellSize);
+        this.pixelWidth = this.width * this.cellSize;
+        this.pixelHeight = this.height * this.cellSize;
+        self = new Grid(this.width, this.height, this.cellSize);
+        this.fill();
+    }
+
     render() {
         let size = this.cellSize;
         ctx.clearRect(0, 0, this.pixelWidth, this.pixelHeight);
@@ -139,7 +150,7 @@ class Grid {
 }
 
 
-const size = 4;
+let size = 3;
 const width = window.innerWidth;
 const height = window.innerHeight;
 const gridWidth = Math.floor(width / size);
@@ -183,8 +194,7 @@ function run() {
 }
 
 document.body.addEventListener('click',event => {
-    grid = new Grid(gridWidth, gridHeight, size);
-    grid.fill();
+    grid.reset();
 });
 
 run();
